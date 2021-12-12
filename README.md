@@ -13,8 +13,17 @@
 1. php artisan storage:link
 1. php artisan serve
 
+npm run dev //webpack css and js
+npm run prod //also minimizes them
+
 ## Access
 
 1. Goto http://127.0.0.1:8000.
 1. Type in the username 'admin@admin.com' and password 'password'.
 
+
+## Clear Cache
+1. php artisan cache:clear && 
+1. php artisan config:cache && 
+1. php artisan view:clear && 
+1. php artisan route:cache

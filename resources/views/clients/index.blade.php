@@ -28,7 +28,7 @@
         </tr>
         @foreach ($clients as $client) 
             <tr>
-                <td width="80px"><img class="object-cover w-full h-full rounded-full" src="{{asset($client->avatar)}}" alt="" loading="lazy" /></td>
+                <td width="80px"><img class="object-cover w-full h-full rounded-full" src="{{Storage :: url ($client->avatar)}}" alt="" loading="lazy" /></td>
                 <td>{{ $client->first_name }} {{ $client->last_name }}</td>
                 <td>{{ $client->email }}</td>
                 <td>

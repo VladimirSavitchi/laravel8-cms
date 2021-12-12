@@ -43,7 +43,7 @@ class ClientController extends Controller
 
         // store img
         $name = $request->file('avatar')->getClientOriginalName();
-        $path = $request->file('avatar')->store('img/pfp');
+        $path = $request->file('avatar')->store('public/img/pfp');
 
         // store client details
         $client = new Client();
@@ -98,6 +98,8 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
+        dd($client->avatar);
+        //unlink("uploads/".$image->image_name);
         $client->delete();
 
         return redirect()->route('clients.index')
