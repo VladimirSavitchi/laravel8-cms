@@ -13,6 +13,7 @@ class ClientController extends Controller
      */
     public function index()
     {
+        // view 10 clients per page
         $clients = Client::latest()->paginate(10);
 
         return view('clients.index',compact('clients'))
@@ -32,6 +33,7 @@ class ClientController extends Controller
      */
     public function store(Request $request)
     {
+        // validate
         $request->validate([
             'first_name' => 'required|string|alpha_num|max:150|min:3',
             'last_name' => 'required|string|alpha_num|max:150|min:3',
@@ -39,19 +41,17 @@ class ClientController extends Controller
             'email' => 'required|email|max:250|min:3',
         ]);
 
+        // store img
         $name = $request->file('avatar')->getClientOriginalName();
-        $path = $request->file('avatar')->store('public/img/pfp');
+        $path = $request->file('avatar')->store('img/pfp');
 
+        // store client details
         $client = new Client();
         $client->first_name = $request->input('first_name');
         $client->last_name =  $request->input('last_name');
         $client->avatar = $path;
         $client->email = $request->input('email');
         $client->save();
-
-        //Client::create($request->all());
-
-
 
         return redirect()->route('clients.index')
             ->with('success','Client created successfully.');
@@ -80,10 +80,6 @@ class ClientController extends Controller
      */
     public function update(Request $request, Client $client)
     {
-        Validator::extend('alphanumeric', function($attr, $value){
-            return preg_match('/^\S*$/u', $value);
-        });
-
         $request->validate([
             'first_name' => 'required|string|alpha_num|max:150|min:3',
             'last_name' => 'required|string|alpha_num|max:150|min:3',
