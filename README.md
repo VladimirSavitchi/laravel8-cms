@@ -13,7 +13,7 @@
 1. php artisan storage:link
 1. php artisan serve
 
-## Navigation
+## Access
 
 1. Goto http://127.0.0.1:8000.
 1. Type in the username 'admin@admin.com' and password 'password'.
