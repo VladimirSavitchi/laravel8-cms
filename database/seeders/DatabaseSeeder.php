@@ -3,6 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
+use App\Models\Client;
+use App\Models\Transaction;
 
 class DatabaseSeeder extends Seeder
 {
@@ -13,6 +15,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        // Call seeder to create an admin user
+        $this->call([
+            AdminUserSeeder::class,
+        ]);
+
+        // create 30 clients and 500 transactions for them
+        Client::factory()->count(30)->create();
+        Transaction::factory()->count(500)->create();
     }
 }

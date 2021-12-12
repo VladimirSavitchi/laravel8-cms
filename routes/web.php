@@ -14,5 +14,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('dashboard');
+})->middleware(['auth']);
+
+require __DIR__.'/auth.php';
+
+
+Route::resource('clients',ClientController::class)->middleware('auth');
+Route::resource('transactions',TransactionController::class)->middleware('auth');
