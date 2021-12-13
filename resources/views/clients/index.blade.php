@@ -26,18 +26,21 @@
             <th>Email</th>
             <th width="280px">Actions</th>
         </tr>
-        @foreach ($clients as $client) 
-            <tr>
-                <td width="80px"><img class="object-cover w-full h-full rounded-full" src="{{Storage :: url ($client->avatar)}}" alt="" loading="lazy" /></td>
-                <td>{{ $client->first_name }} {{ $client->last_name }}</td>
-                <td>{{ $client->email }}</td>
-                <td>
-                    <a class="btn btn-info" href="{{ route('clients.show',$client->id) }}">Show</a>
-                    <a class="btn btn-primary" href="{{ route('clients.edit',$client->id) }}">Edit</a>
-                    <button type="button" class="btn btn-danger" onclick="openDeleteModal({{$client->id}})">Delete</button>
-                </td>
-            </tr>
-        @endforeach
+        @if(!$clients->isEmpty())
+            @foreach ($clients as $client) 
+            
+                <tr>
+                    <td width="80px"><img class="object-cover w-full h-full rounded-full" src="{{ $client->avatar != "0" ? Storage :: url ('img/pfp/'.$client->avatar) : asset('img/pfp/blank-profile-picture.png') }}" alt="" loading="lazy" /></td>
+                    <td>{{ $client->first_name }} {{ $client->last_name }}</td>
+                    <td>{{ $client->email }}</td>
+                    <td>
+                        <a class="btn btn-info" href="{{ route('clients.show',$client->id) }}">Show</a>
+                        <a class="btn btn-primary" href="{{ route('clients.edit',$client->id) }}">Edit</a>
+                        <button type="button" class="btn btn-danger" onclick="openDeleteModal({{$client->id}})">Delete</button>
+                    </td>
+                </tr>
+            @endforeach
+        @endif
     </table>
 
     {!! $clients->links() !!}
@@ -53,7 +56,7 @@
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
-            <form action="{{route('clients.destroy', $client->id)}}" method="post" id="del_modal">
+            <form action="" method="post" id="del_modal">
                 <div class="modal-body">
                         <div class="modal-body">
                             @csrf

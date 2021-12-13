@@ -41,15 +41,16 @@ class ClientController extends Controller
             'email' => 'required|email|max:250|min:3',
         ]);
 
-        // store img
-        $name = $request->file('avatar')->getClientOriginalName();
-        $path = $request->file('avatar')->store('public/img/pfp');
+        // upload img to storage
+        $avatar=$request->file('avatar');
+        $filename = time().'.'.$avatar->getClientOriginalExtension();
+        $request->file('avatar')->move('storage/img/pfp', $filename);
 
         // store client details
         $client = new Client();
         $client->first_name = $request->input('first_name');
         $client->last_name =  $request->input('last_name');
-        $client->avatar = $path;
+        $client->avatar = $filename;
         $client->email = $request->input('email');
         $client->save();
 
