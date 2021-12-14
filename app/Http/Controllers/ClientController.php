@@ -99,8 +99,10 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        dd($client->avatar);
-        //unlink("uploads/".$image->image_name);
+        if (!empty($client->avatar)) {
+            unlink("storage/img/pfp/".$client->avatar);
+        }
+
         $client->delete();
 
         return redirect()->route('clients.index')

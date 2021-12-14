@@ -1,5 +1,5 @@
 // open model func
-function openDeleteModal(id) {
+openDeleteModal = function(id) {
     document.getElementById("del_modal").action = '/clients/' + id;
     document.getElementById("backdrop").style.display = "block";
     document.getElementById("confirmationModal").style.display = "block";
@@ -7,7 +7,7 @@ function openDeleteModal(id) {
 }
 
 // close model func
-function closeDeleteModal() {
+closeDeleteModal = function() {
     document.getElementById("backdrop").style.display = "none";
     document.getElementById("confirmationModal").style.display = "none";
     document.getElementById("confirmationModal").classList.remove("show");
