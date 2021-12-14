@@ -8,6 +8,7 @@
 1. cp .env.example .env
 1. composer install 
 1. npm install
+1. make sure the db credentials and host are correct in the .env
 1. php artisan migrate
 1. php artisan db:seed
 1. php artisan storage:link
