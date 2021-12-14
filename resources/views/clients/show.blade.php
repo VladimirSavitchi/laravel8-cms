@@ -11,7 +11,7 @@
     </div>
     <table style="width:100%">
         <tr>
-            <td width="180px"><img class="object-cover w-full h-full rounded-full" src="{{asset($client->avatar)}}" alt="" loading="lazy" /></td>
+            <td width="180px"><img class="object-cover w-full h-full rounded-full" src="{{ $client->avatar != "0" ? Storage :: url ('img/pfp/'.$client->avatar) : asset('img/pfp/blank-profile-picture.png') }}" alt="" loading="lazy" /></td>
             <td>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-12">
