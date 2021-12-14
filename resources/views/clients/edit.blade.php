@@ -22,11 +22,15 @@
         </div>
     @endif
 
-    <form action="{{ route('clients.update',$client->id) }}" method="POST">
+    <form action="{{ route('clients.update',$client->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
 
         <div class="row">
+        <div class="col-4">
+        <img class="object-cover w-full h-full rounded-full" src="{{ $client->avatar != "0" ? Storage :: url ('img/pfp/'.$client->avatar) : asset('img/pfp/blank-profile-picture.png') }}" alt="" loading="lazy" />
+        </div>
+        <div class="col">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>First Name:</strong>
@@ -42,19 +46,19 @@
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Avatar:</strong>
-                    <input type="text" name="avatar" value="{{ $client->avatar }}" class="form-control">
+                    <input type="file" name="avatar" class="form-control" placeholder="Choose image">
                 </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <div class="form-group">
                     <strong>Email:</strong>
-                    <textarea class="form-control" style="height:150px" name="email">{{ $client->email }}</textarea>
+                    <input type="text" name="email" class="form-control" value="{{ $client->email }}">
                 </div>
+            </div>
             </div>
             <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                 <button type="submit" class="btn btn-success">Update</button>
             </div>
         </div>
-
     </form>
 @endsection

@@ -84,11 +84,31 @@ class ClientController extends Controller
         $request->validate([
             'first_name' => 'required|string|alpha_num|max:150|min:3',
             'last_name' => 'required|string|alpha_num|max:150|min:3',
-            'avatar' => 'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048',
+            'avatar' => 'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
             'email' => 'required|email|max:250|min:3',
         ]);
 
-        $client->update($request->all());
+        //$client->update($request->all());
+
+        // check if a new avatar has been added in the form.
+        if (!empty($request->file('avatar'))) {
+            // remove client old img
+            if (!empty($client->avatar)) {
+                unlink("storage/img/pfp/".$client->avatar);
+            }
+
+            // upload new img to storage
+            $avatar=$request->file('avatar');
+            $filename = time().'.'.$avatar->getClientOriginalExtension();
+            $request->file('avatar')->move('storage/img/pfp', $filename);
+        }
+
+        // store client details
+        $client->first_name = $request->input('first_name');
+        $client->last_name =  $request->input('last_name');
+        !empty($filename) ? $client->avatar = $filename : false; // include only if the clients img has been updated.
+        $client->email = $request->input('email');
+        $client->save();
 
         return redirect()->route('clients.index')
             ->with('success','Client updated successfully');
@@ -99,7 +119,7 @@ class ClientController extends Controller
      */
     public function destroy(Client $client)
     {
-        if (!empty($client->avatar)) {
+        if (!empty($client->avatar) && file_exists("storage/img/pfp/".$client->avatar)) {
             unlink("storage/img/pfp/".$client->avatar);
         }
 

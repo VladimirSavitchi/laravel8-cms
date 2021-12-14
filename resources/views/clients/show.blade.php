@@ -9,7 +9,7 @@
             </div>
         </div>
     </div>
-    <table style="width:100%">
+    <table style="width:100%" class="table">
         <tr>
             <td width="180px"><img class="object-cover w-full h-full rounded-full" src="{{ $client->avatar != "0" ? Storage :: url ('img/pfp/'.$client->avatar) : asset('img/pfp/blank-profile-picture.png') }}" alt="" loading="lazy" /></td>
             <td>
